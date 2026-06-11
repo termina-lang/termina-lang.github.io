@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Termina · A language for real-time critical systems</title>
+<title>Termina · A domain-specific language for critical real-time embedded systems</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,9 +18,9 @@
     <div class="brand"><img src="assets/logo_termina.png" alt="Termina"><span class="wm"><b>t</b>ermina</span></div>
     <div class="links">
       <a href="#why">Why Termina</a>
-      <a href="#code">In code</a>
-      <a href="#model">Reactive model</a>
-      <a href="#book">The book</a>
+      <a href="#code">The language</a>
+      <a href="#model">The reactive model</a>
+      <a href="#toolchain">Toolchain</a>
     </div>
     <div class="right">
       <span class="ver mono">v0.4.0</span>
@@ -34,67 +34,60 @@
   <canvas id="stars"></canvas>
   <div class="wrap">
     <div>
-      <div class="kick">A programming language for real-time critical systems</div>
-      <h1>Real-time,<br><em>by design.</em></h1>
-      <p class="sub">Termina is a domain-specific language for reactive, real-time embedded software — with memory safety, bounded execution and timing analyzability guaranteed by the language itself.</p>
+      <div class="kick">The Termina programming language</div>
+      <h1>A domain-specific language for critical real-time embedded&nbsp;systems</h1>
+      <p class="sub">Termina simplifies the implementation of real-time on-board software and reduces the cost of validating and verifying it. Its transpiler produces MISRA-compliant C, supported on RTEMS, FreeRTOS, and POSIX through a portable abstraction layer.</p>
       <div class="cta">
-        <a class="btn primary" href="#book">Read the book →</a>
-        <a class="btn ghost" href="#code">See it in code</a>
+        <a class="btn primary" href="https://termina-lang.github.io/termina-book/" target="_blank">Read the book →</a>
+        <a class="btn ghost" href="https://github.com/termina-lang/termina" target="_blank">Source on GitHub</a>
       </div>
       <div class="install mono">
-        <span class="pr">$</span> termina new my-onboard-app
-        <span class="cp" onclick="navigator.clipboard&amp;&amp;navigator.clipboard.writeText('termina new my-onboard-app')">copy</span>
+        <span class="pr">$</span> docker pull ghcr.io/termina-lang/docker-termina:latest
+        <span class="cp" onclick="navigator.clipboard&amp;&amp;navigator.clipboard.writeText('docker pull ghcr.io/termina-lang/docker-termina:latest')">copy</span>
       </div>
     </div>
     <div class="hero-art">
-      <img src="assets/cover_full.png" alt="Termina — software in orbit">
+      <img src="assets/cover_full.png" alt="Termina, software in orbit">
     </div>
   </div>
 </header>
 
-<!-- TRUST -->
-<div class="trust">
-  <div class="wrap">
-    <span class="lab">Developed at the Space Research Group, Universidad de Alcal&aacute; &middot; being matured for on-board space software in an ESA OSIP activity, in collaboration with GMV</span>
-  </div>
-</div>
-
-<!-- WHY / PRINCIPLES -->
+<!-- WHY -->
 <section class="block" id="why">
   <div class="wrap">
-    <div class="eyebrow">Design principles</div>
-    <h2>Guarantees provided by the language, not by exhaustive testing.</h2>
-    <p class="lede">Termina was shaped by six principles that put correctness and analyzability first — so the cost of verification falls out of the design.</p>
+    <div class="eyebrow">Why Termina</div>
+    <h2>Verification drives the cost of critical software</h2>
+    <p class="lede">In the standards that govern on-board and safety-related software, much of the budget goes into demonstrating properties that the implementation language never expressed: that loops terminate, that memory is bounded, that shared state is protected. Termina states those properties in the program itself, and the transpiler checks them on every build.</p>
     <div class="principles">
       <div class="pcard">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
-        <h3>Reactive model</h3>
-        <p>Systems are built from tasks, handlers and resources that communicate through ports and channels — the architecture is in the language.</p>
+        <h3>Reactive by structure</h3>
+        <p>A program is a set of components that respond to events: timers, interrupts, messages. The structure a designer draws is the structure the code declares.</p>
       </div>
       <div class="pcard">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <h3>Run-to-completion</h3>
-        <p>Every reaction runs to completion without preemption, making the timing of each action predictable and composable.</p>
-      </div>
-      <div class="pcard">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Memory safety</h3>
-        <p>Linear <span class="mono" style="color:var(--sky-deep)">box</span> types and explicit ownership rule out use-after-free, leaks and data races by construction.</p>
+        <h3>Run-to-completion semantics</h3>
+        <p>Every action runs to completion. Loops carry a static bound and recursion is rejected, so worst-case execution times can be derived from the source.</p>
       </div>
       <div class="pcard">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
         <h3>Deterministic memory</h3>
-        <p>No hidden allocation. Pools and fixed-capacity structures make memory usage bounded and known ahead of time.</p>
+        <p>There is no heap. Dynamic storage comes from fixed-capacity pools, as owned blocks that must be released or transferred exactly once. Leaks and use-after-free are compile-time errors.</p>
+      </div>
+      <div class="pcard">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Automatic protection</h3>
+        <p>The transpiler analyzes how each shared resource is used and generates the synchronization it needs: a priority-ceiling mutex, interrupt masking, atomic operations, or none at all.</p>
       </div>
       <div class="pcard">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l5-5-5-5M12 19h9"/></svg></div>
-        <h3>Ease of use</h3>
-        <p>A familiar imperative syntax with strong typing — approachable for embedded engineers coming from C or Ada.</p>
+        <h3>Readable MISRA C</h3>
+        <p>The output is C meant to be read: explicit casts, designated initializers, bounds-checked array access. It compiles with the toolchains embedded projects already use.</p>
       </div>
       <div class="pcard">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 16l3-4 3 2 4-6"/></svg></div>
-        <h3>Analyzable timing</h3>
-        <p>The compiler extracts timing and data-flow models straight from the source, ready for schedulability analysis.</p>
+        <h3>Portable across targets</h3>
+        <p>The same generated code runs on RTEMS 5 on a LEON3, on FreeRTOS 10 on an STM32, and on a POSIX host for development, through the Termina OSAL.</p>
       </div>
     </div>
   </div>
@@ -104,13 +97,13 @@
 <section class="showcase" id="code">
   <div class="wrap">
     <div>
-      <div class="eyebrow">In code</div>
-      <h2>Declare reactive entities, explicitly.</h2>
-      <p class="lede">A task class states its ports, its private state and the actions triggered by incoming events. Everything the transpiler needs to reason about the architecture is right there in the declaration.</p>
+      <div class="eyebrow">The language</div>
+      <h2>Components declare their ports; the application connects them</h2>
+      <p class="lede">A task class states the events it reacts to, the interfaces it uses, and the actions it executes. Instances and their connections are declared in a separate application module, so the transpiler sees the complete system and can verify it as a whole.</p>
       <ul class="feat">
-        <li><b>Ports, not globals.</b> Tasks talk through typed ports — never shared references.</li>
-        <li><b>Declared architecture.</b> Instances, priorities and connections live in one application module that the transpiler checks.</li>
-        <li><b>Bounded by construction.</b> No recursion, no unbounded loops, predictable WCET.</li>
+        <li><b>Typed ports.</b> Components reach the rest of the system only through their ports. There are no globals to share by accident.</li>
+        <li><b>Explicit outcomes.</b> Actions return a <span class="mono" style="color:var(--sky)">Status</span> value, and variant types make failure handling part of the signature.</li>
+        <li><b>Inspectable output.</b> Every class becomes plain C in the output tree, with names that match the source.</li>
       </ul>
     </div>
     <div class="code">
@@ -137,19 +130,42 @@
   </div>
 </section>
 
-<!-- REACTIVE MODEL ENTITIES -->
+<!-- REACTIVE MODEL -->
 <section class="block entities" id="model">
   <div class="wrap">
     <div class="eyebrow">The reactive model</div>
-    <h2>Six building blocks, one analyzable system.</h2>
-    <p class="lede">Every Termina program is composed from a small set of first-class entities. The transpiler knows how they connect — and uses it to reason about the whole system.</p>
+    <h2>The vocabulary of a Termina system</h2>
+    <p class="lede">Applications are assembled from a small set of constructs. The transpiler knows what each one is and how they are connected, and it verifies that knowledge on every build.</p>
     <div class="grid">
-      <div class="ecard"><span class="kw-name">emitter</span><h3>Event sources</h3><p>Periodic, sporadic or interrupt-driven sources that start a transaction.</p></div>
-      <div class="ecard"><span class="kw-name">task class</span><h3>Autonomous work</h3><p>Run-to-completion units that react to events arriving on their ports.</p></div>
-      <div class="ecard"><span class="kw-name">handler class</span><h3>Interrupt handling</h3><p>Bounded responders bound to hardware events, with strict timing.</p></div>
-      <div class="ecard"><span class="kw-name">resource class</span><h3>Shared state</h3><p>Protected data accessed only through ports — no direct references, no races.</p></div>
-      <div class="ecard"><span class="kw-name">channel</span><h3>Message passing</h3><p>Typed queues that move messages between tasks with bounded capacity.</p></div>
-      <div class="ecard"><span class="kw-name">pool</span><h3>Deterministic memory</h3><p>Fixed-capacity allocators for <span class="mono" style="color:var(--sky-deep)">box</span> values — no hidden heap.</p></div>
+      <div class="ecard"><span class="kw-name">emitter</span><h3>Event sources</h3><p>Periodic timers, hardware interrupts, and system start-up. Every activity in the system begins at one of them.</p></div>
+      <div class="ecard"><span class="kw-name">task class</span><h3>Scheduled components</h3><p>Components with their own thread and a fixed priority. Each of their actions runs to completion.</p></div>
+      <div class="ecard"><span class="kw-name">handler class</span><h3>Interrupt context</h3><p>Components whose single action runs in the context of the interrupt that fires it, and delegates longer work to a task.</p></div>
+      <div class="ecard"><span class="kw-name">resource class</span><h3>Protected state</h3><p>Shared data reached only through interfaces, with mutual exclusion generated by the transpiler.</p></div>
+      <div class="ecard"><span class="kw-name">channel</span><h3>Message queues</h3><p>Bounded, typed queues that carry messages between components asynchronously.</p></div>
+      <div class="ecard"><span class="kw-name">pool</span><h3>Block allocators</h3><p>Fixed-capacity sources of owned <span class="mono" style="color:var(--sky-deep)">box</span> blocks, the only dynamic memory in the language.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLCHAIN -->
+<section class="block" id="toolchain">
+  <div class="wrap">
+    <div class="eyebrow">Toolchain</div>
+    <h2>One container, ready to build</h2>
+    <p class="lede">The project distributes a Docker image with the transpiler, the OSAL, and the SPARC and Arm cross-toolchains, so a working environment is one pull away on any host. Editor support and documentation complete the set.</p>
+    <div class="principles">
+      <div class="pcard">
+        <h3><a href="https://github.com/termina-lang/docker-termina" target="_blank">docker-termina ↗</a></h3>
+        <p>The development image, published on GHCR. Pin an exact version tag, such as <span class="mono">v0.4.0</span>, to give a course or a project a reproducible setup.</p>
+      </div>
+      <div class="pcard">
+        <h3><a href="https://marketplace.visualstudio.com/items?itemName=termina-lang.termina" target="_blank">VS Code extension ↗</a></h3>
+        <p>Syntax highlighting and a language server for <span class="mono">.fin</span> files, published on the Marketplace as <span class="mono">termina-lang.termina</span>. Works inside the container through Dev Containers.</p>
+      </div>
+      <div class="pcard">
+        <h3><a href="https://termina-lang.github.io/termina-book/" target="_blank">The Termina Book ↗</a></h3>
+        <p>Installation, a guided tutorial, the language chapter by chapter, the reactive model, memory, and device drivers. Every C fragment shown is real transpiler output.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -159,12 +175,12 @@
   <div class="inner">
     <img class="shield" src="assets/logo_termina.png" alt="Termina">
     <div>
-      <h2>Learn Termina, end to end.</h2>
-      <p>The Termina Book walks from your first real-time application to the full reactive model, memory management and tooling.</p>
+      <h2>Start with the book</h2>
+      <p>It takes a first program from an empty directory to a running system, then covers the language end to end against the current release.</p>
     </div>
     <div class="acts">
       <a class="btn dark" href="https://termina-lang.github.io/termina-book/" target="_blank">Read the book →</a>
-      <a class="btn outline" href="https://github.com/termina-lang" target="_blank">Browse the source</a>
+      <a class="btn outline" href="https://github.com/termina-lang/termina" target="_blank">Browse the source</a>
     </div>
   </div>
 </section>
@@ -174,13 +190,13 @@
   <div class="wrap">
     <div>
       <div class="brand"><img src="assets/logo_termina_white.png" alt="Termina"><span class="wm"><b>t</b>ermina</span></div>
-      <p class="blurb">A domain-specific language for real-time critical systems. Correctness by construction.</p>
+      <p class="blurb">A domain-specific language for critical real-time embedded systems.</p>
     </div>
     <div class="col">
       <h4>Learn</h4>
-      <a href="https://termina-lang.github.io/termina-book/" target="_blank">The Book</a>
+      <a href="https://termina-lang.github.io/termina-book/" target="_blank">The book</a>
       <a href="https://termina-lang.github.io/termina-book/tutorial/" target="_blank">The tutorial</a>
-      <a href="#model">Reactive model</a>
+      <a href="https://termina-lang.github.io/termina-book/started/install/" target="_blank">Installation</a>
     </div>
     <div class="col">
       <h4>Project</h4>
@@ -195,8 +211,7 @@
     </div>
   </div>
   <div class="base">
-    <span>© 2022–2026 The Termina Project Contributors</span>
-    <span class="mono">Space Research Group · Universidad de Alcalá</span>
+    <span>© 2022-2026 The Termina Project Contributors</span>
   </div>
 </footer>
 
