@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Termina · A domain-specific language for critical real-time embedded systems</title>
+<title>Termina · A language for real-time critical systems</title>
+<meta name="description" content="Termina is a domain-specific language for real-time critical embedded systems, with a transpiler to C, an OSAL for RTEMS, FreeRTOS and POSIX, a VS Code extension and a book.">
+<link rel="canonical" href="https://termina-lang.org/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="assets/logo_termina.png">
-<link rel="stylesheet" href="styles.css?v=13">
+<link rel="stylesheet" href="styles.css?v=14">
 </head>
 <body>
 
@@ -16,7 +18,7 @@
 <nav class="nav">
   <div class="brand"><img src="assets/logo_termina.png" alt="Termina"><span class="wm"><b>t</b>ermina</span></div>
   <div class="lk"><a href="#why">Why Termina</a><a href="#code">The language</a><a href="#toolchain">Toolchain</a><a href="https://termina-lang.org/book/" target="_blank">The book</a></div>
-  <div class="rt"><span class="ver mono js-ver">v0.4.0</span><a class="gh" href="https://github.com/termina-lang" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a></div>
+  <div class="rt"><span class="ver mono js-ver">v0.7.0</span><a class="gh" href="https://github.com/termina-lang" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a></div>
 </nav>
 
 <!-- HERO -->
@@ -31,7 +33,7 @@
       <a class="btn primary" href="https://termina-lang.org/book/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Read the book</a>
       <a class="btn ghost" href="https://github.com/termina-lang/termina" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>Source on GitHub</a>
     </div>
-    <div class="install mono"><span class="pr">$</span> docker pull ghcr.io/termina-lang/docker-termina:latest <span class="cp" onclick="navigator.clipboard&amp;&amp;navigator.clipboard.writeText('docker pull ghcr.io/termina-lang/docker-termina:latest')">copy</span></div>
+    <div class="install mono"><span class="pr">&rarr;</span> <a href="https://termina-lang.org/book/started/install/" target="_blank">Install: VS Code and the container image, or native binaries for Linux and macOS</a></div>
   </div>
 </div>
 
@@ -70,7 +72,7 @@
       <div class="pcard">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
         <h3>Deterministic and memory-safe</h3>
-        <p>Dynamic memory comes only from fixed-size pools, and the type system rules out access errors, null-pointer dereferences, and leaks.</p>
+        <p>Dynamic memory comes only from fixed-size pools, and the type system rules out null-pointer dereferences and leaks. Every array access is checked, at compile time where the transpiler can prove it and at run time otherwise.</p>
       </div>
     </div>
   </div>
@@ -101,14 +103,15 @@
 <span class="ln"> 5</span>
 <span class="ln"> 6</span>  timer : <span class="kw">sink</span> <span class="ty">TimeVal</span> <span class="kw">triggers</span> <span class="fn">hk_timeout</span>;
 <span class="ln"> 7</span>
-<span class="ln"> 8</span>  <span class="kw">action</span> <span class="fn">hk_timeout</span>(&amp;<span class="kw">priv</span> self, _t : <span class="ty">TimeVal</span>) -> <span class="ty">Status</span>&lt;<span class="ty">i32</span>&gt; {
-<span class="ln"> 9</span>    <span class="kw">let</span> status : <span class="ty">Status</span>&lt;<span class="ty">i32</span>&gt; = <span class="ty">Success</span>;
-<span class="ln">10</span>    self-><span class="fn">update_params</span>();
-<span class="ln">11</span>    self-><span class="fn">do_housekeeping</span>();
-<span class="ln">12</span>    <span class="kw">return</span> status;
-<span class="ln">13</span>  }
-<span class="ln">14</span>
-<span class="ln">15</span>};</pre>
+<span class="ln"> 8</span>  <span class="kw">action</span> <span class="fn">hk_timeout</span>(&amp;<span class="kw">priv</span> self, _t : <span class="ty">TimeVal</span>) {
+<span class="ln"> 9</span>
+<span class="ln">10</span>    self->hk_subsystem_port.<span class="fn">update_params</span>();
+<span class="ln">11</span>    self->hk_subsystem_port.<span class="fn">do_housekeeping</span>();
+<span class="ln">12</span>    <span class="kw">return</span>;
+<span class="ln">13</span>
+<span class="ln">14</span>  }
+<span class="ln">15</span>
+<span class="ln">16</span>};</pre>
     </div>
   </div>
 </section>
@@ -117,20 +120,20 @@
 <section class="block" id="toolchain">
   <div class="wrap">
     <div class="eyebrow">Toolchain</div>
-    <h2>One container, ready to build</h2>
-    <p class="lede">The toolchain is a Docker image, an editor extension, and a book. The image bundles the transpiler, the OSAL, and the SPARC and Arm cross-toolchains, so a working environment is one docker pull away.</p>
+    <h2>From a new project to a board</h2>
+    <p class="lede">The transpiler builds a project, runs its tests on the host and on the boards, and fetches its dependencies. It comes as native binaries for Linux and macOS, and inside a container image that also carries the OSAL and the SPARC, Arm and RISC-V cross-toolchains of the <a href="https://termina-lang.org/book/platforms/supported/" target="_blank">supported platforms</a>.</p>
     <div class="principles">
       <div class="pcard">
         <h3><a href="https://github.com/termina-lang/docker-termina" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.186v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.888c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.186v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288z"/></svg>docker-termina</a></h3>
-        <p>The development image, published on GHCR. Pin an exact version tag, such as <span class="mono js-ver">v0.4.0</span>, to give a course or a project a reproducible setup.</p>
+        <p>The development image, published on GHCR, with the transpiler, the OSAL and the cross-toolchains of every supported platform. Pin an exact version tag, such as <span class="mono js-ver">v0.7.0</span>, to give a course or a project a reproducible setup.</p>
       </div>
       <div class="pcard">
         <h3><a href="https://marketplace.visualstudio.com/items?itemName=termina-lang.termina" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 00-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 00-1.276.057L.327 7.261A1 1 0 00.326 8.74L3.899 12 .326 15.26a1 1 0 00.001 1.479L1.65 17.94a.999.999 0 001.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 001.704.29l4.942-2.377A1.5 1.5 0 0024 18.06V3.939a1.5 1.5 0 00-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>VS Code extension</a></h3>
-        <p>Syntax highlighting and a language server for <span class="mono">.fin</span> files, published on the Marketplace as <span class="mono">termina-lang.termina</span>. Works inside the container through Dev Containers.</p>
+        <p>Syntax highlighting and a language server for <span class="mono">.fin</span> files, a command that creates a project, the tests of a project in the Testing view, and debugging on the host and on the boards. Published on the Marketplace as <span class="mono">termina-lang.termina</span>, it works inside the container through Dev Containers.</p>
       </div>
       <div class="pcard">
         <h3><a href="https://termina-lang.org/book/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>The Termina Book</a></h3>
-        <p>Installation, a guided tutorial, the language chapter by chapter, the reactive model, memory, and device drivers. Every C fragment shown is real transpiler output.</p>
+        <p>Installation, a guided tutorial, the language chapter by chapter, the reactive model, memory, device drivers, testing, the package manager and the supported platforms. Every C fragment shown is real transpiler output.</p>
       </div>
     </div>
   </div>
